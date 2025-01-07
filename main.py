@@ -26,8 +26,13 @@ else:
     model.save_pretrained(model_path)
     tokenizer.save_pretrained(tokenizer_path)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# model.to(device)
+
+# Force the use of CPU if on Streamlit Cloud
+device = torch.device("cpu")  # Force CPU if not using GPU on Streamlit Cloud
 model.to(device)
+
 
 # Set the maximum length and number of beams for caption generation
 max_length = 16
